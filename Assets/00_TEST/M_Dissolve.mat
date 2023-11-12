@@ -35,7 +35,7 @@ Material:
     - Vector1_906fa8999de04ccab3ffcf092bf05986: 0.05
     - Vector1_b3f5bbfaffca425abac0a2e547f4afa8: 30
     - Vector1_f06b3833539948aabab2ebf278f6d587: -0.2
-    - _DissolveDistance: -0.2
+    - _DissolveDistance: 1.15
     m_Colors:
     - Color_023a8fddc7c642dd8d2d8381a508fe9c: {r: 2.2588236, g: 17.819609, b: 23.968628, a: 0}
   m_BuildTextureStacks: []

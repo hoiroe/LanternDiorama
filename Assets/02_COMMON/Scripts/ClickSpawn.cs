@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class ClickSpawn : MonoBehaviour
 {
@@ -8,7 +9,17 @@ public class ClickSpawn : MonoBehaviour
 
     public float duration;
     public float targetScale;
+    public Material mainMaterial;
 
+    private void Start()
+    {
+        mainMaterial.SetFloat("_DissolveDistance", -0.2f);
+    }
+
+    private void OnDestroy()
+    {
+        mainMaterial.SetFloat("_DissolveDistance", 1.15f);
+    }
 
 
     private IEnumerator TweenObject(GameObject orb)
