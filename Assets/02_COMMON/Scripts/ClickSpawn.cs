@@ -10,6 +10,7 @@ public class ClickSpawn : MonoBehaviour
     public float duration;
     public float targetScale;
     public Material mainMaterial;
+    public float distanceOffset;
 
     private void Start()
     {
@@ -22,22 +23,7 @@ public class ClickSpawn : MonoBehaviour
     }
 
 
-    private IEnumerator TweenObject(GameObject orb)
-    {
-        float timer = 0;
-        orb.transform.localScale = Vector3.zero;
-        while (timer < duration)    
-        {
-            
-            orb.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one*targetScale, timer);
-            timer += Time.deltaTime;
-            yield return null;
-        }
-
-        Destroy(orb);
-       
-
-    }
+    
     private IEnumerator Dissolve(MeshRenderer mr)
     {
         float timer = 0;
@@ -66,7 +52,7 @@ public class ClickSpawn : MonoBehaviour
     }
     void Update()
     {
-        // Ekran üzerinde bir dokunma algılandı mı kontrol et
+        
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -74,9 +60,16 @@ public class ClickSpawn : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                // Dokunulan noktada objeyi oluştur
-                GameObject orb = Instantiate(objectToSpawn, hit.point, Quaternion.identity);
-                StartCoroutine(TweenObject(orb));
+           
+                
+
+                Vector3 orbPosition = hit.point;
+                Vector3 direction = (Camera.main.transform.position - orbPosition).normalized;
+                orbPosition += direction * distanceOffset;
+                
+
+                GameObject orb = Instantiate(objectToSpawn, orbPosition, Quaternion.identity);
+                
                 StartCoroutine(Dissolve(hit.collider.gameObject.GetComponent<MeshRenderer>()));
 
 
